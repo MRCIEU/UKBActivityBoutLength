@@ -11,7 +11,7 @@
 Rscript makeDataset.r
 ```
 
-# Create subsample according to our inclusion criteria
+## Create subsample according to our inclusion criteria
 
 ```bash
 Rscript generateSample.r

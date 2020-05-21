@@ -1,0 +1,7 @@
+out*
+err*
+off*
+*.log
+*.csv
+*.cwa
+*.txt

@@ -26,7 +26,7 @@ Activity level (avg per minute): 100-125, 126 - 150, 151+
 We produce 1 aggregation file for each 1000 part job. Each row has the columns:
 
 1. Participant ID
-2. Bout aggregation columns for the 100 mg and 3met thresholds, the total time spent in bouts of this length/intensity across included days:
+2. Bout aggregation columns for the 100 mg threshold and predicted activity classes, the total time spent in bouts of this length/intensity across included days:
  - dur1_auc1, dur1_auc2, dur1_auc3, dur2_auc1, dur2_auc2, dur2_auc3, dur3_auc1, dur3_auc2, dur3_auc3
 3. Activity summary columns:
  - imputed_inc: Indicates whether 'other day' imputed version is included (has bouts)
@@ -42,4 +42,6 @@ We produce 1 aggregation file for each 1000 part job. Each row has the columns:
 ```bash
 qsub jobAggCD.sh
 qsub jobAggI.sh
+qsub jobAggCD-hybrid.sh
+qsub jobAggI-hybrid.sh
 ```

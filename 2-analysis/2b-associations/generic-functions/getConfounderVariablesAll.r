@@ -1,7 +1,7 @@
 
 
 
-getConfounderVariablesSensitivity <- function(data) {
+getConfounderVariablesAll <- function(data) {
 
 	confs = getConfounderVariables(data)
 

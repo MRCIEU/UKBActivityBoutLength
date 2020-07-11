@@ -23,7 +23,7 @@ markersizex = 11;
 hx = [];
 
 for i=1:3
-	basex = strcat(baselines{i}, '-S');
+	basex = baselines{i};
 
 	count = 1;
 
@@ -36,7 +36,7 @@ for i=1:3
 		else
 			compx = comparisons{j};
 
-			ix = find(strcmp(allx.base,basex)==1 & strcmp(allx.comp,compx)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'TRUE')==1);
+			ix = find(strcmp(allx.base,basex)==1 & strcmp(allx.comp,compx)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'ALL')==1);
 
 			hold on; h1=plot([posx,posx], [allx.lower(ix), allx.upper(ix)], '-', 'color', linecolorx{j}, 'linewidth', 3);
 			hold on; h1=plot(posx, allx.beta(ix), markersx{j}, 'MarkerFaceColor', colorx{j}, 'MarkerEdgeColor', markerEdgecolorx{j}, 'MarkerSize', markersizex);

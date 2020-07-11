@@ -31,7 +31,7 @@ for i=1:5
 	count = 1;
 
 	% all vs basex
-	ix = find(strcmp(allx.base,'all')==1 & strcmp(allx.comp,basex)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'TRUE')==1);
+	ix = find(strcmp(allx.base,'all')==1 & strcmp(allx.comp,basex)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'ALL')==1)
 
 	% NB: these are 1/estimates because here the activity variable in the comparison not the baseline - we want to display as the baseline
 	posx = i;
@@ -39,16 +39,15 @@ for i=1:5
         hold on; h1=plot(posx, 1/allx.beta(ix), markersx{6}, 'MarkerFaceColor', 'white', 'MarkerEdgeColor', colorx{6}, 'MarkerSize', markersizex);
 	hx(1) = h1;
 
-	basex = strcat(comparisons{i}, '-S');
 
 	for j=1:5
 		if (j==i)
 			continue;
 		end
 
-		compx = comparisons{j};
+		compx = comparisons{j}
 
-		ix = find(strcmp(allx.base,basex)==1 & strcmp(allx.comp,compx)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'TRUE')==1);
+		ix = find(strcmp(allx.base,basex)==1 & strcmp(allx.comp,compx)==1 & strcmp(allx.test, 'cox-hr')==1 & strcmp(allx.adjusted,'ALL')==1);
 		posx = i+(count)*0.1;
 
 		hold on; h1=plot([posx,posx], [allx.lower(ix), allx.upper(ix)], '-', 'color', linecolorx{j}, 'linewidth', 3);

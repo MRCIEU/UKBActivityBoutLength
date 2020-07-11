@@ -26,10 +26,10 @@ for (i in 1:length(classes)) {
 	## unadjusted for confounders
 
 	# swapping from	one class to another
-	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, mydata[,compsx], resfile, basex, FALSE)
+	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, mydata[,compsx], resfile, basex, 'NONE')
 
 	# class vs all others: baseline is all other categories
-	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, mydata[,basex, drop=FALSE], resfile, 'all', FALSE)
+	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, mydata[,basex, drop=FALSE], resfile, 'all', 'NONE')
 
 
 	
@@ -37,19 +37,19 @@ for (i in 1:length(classes)) {
 	## adjusted for confounders
 
 	# swapping from one class to another
-	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,compsx], confs), resfile, basex, TRUE)
+	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,compsx], confs), resfile, basex, 'SENS')
 
 	# class vs all others: baseline is all other categories
-	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,basex, drop=FALSE], confs), resfile, 'all', TRUE)
+	coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,basex, drop=FALSE], confs), resfile, 'all', 'SENS')
 
 
 	## adjusted for all (plus bmi and num illnesses)
 
         # swapping from one class to another
-        coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,compsx], confsAll), resfile, paste0(basex,'-S'), TRUE)
+        coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,compsx], confsAll), resfile, basex, 'ALL')
 
         # class vs all others: baseline is all other categories
-        coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,basex, drop=FALSE], confsAll), resfile, 'allS', TRUE)
+        coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(mydata[,basex, drop=FALSE], confsAll), resfile, 'all', 'ALL')
 
 
 
@@ -59,10 +59,10 @@ for (i in 1:length(classes)) {
 avm = mydata[,'avm', drop=FALSE]
 
 # unadjusted
-coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, avm, resfile, 'NULL', FALSE)
+coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, avm, resfile, 'NULL', 'NONE')
 
 # adjusted
-coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(avm, confs), resfile, 'NULL', TRUE)
+coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, cbind(avm, confs), resfile, 'NULL', 'SENS')
 
 
 }

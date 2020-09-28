@@ -4,7 +4,7 @@ dataDir=Sys.getenv('PROJECT_DATA')
 
 
 # read main phenotype data
-data = read.table(paste0(dataDir, '/phenotypes/derived/analysis-dataset-39441-39542.csv'), sep=',', header=TRUE)
+data = read.table(paste0(dataDir, '/phenotypes/derived/analysis-dataset-39441-39542-newdeath.csv'), sep=',', header=TRUE)
 
 # check for any duplicates
 print(paste0('Num: ', length(data$eid)))
@@ -25,14 +25,14 @@ print(paste0('Num: ', nrow(data)))
 ##
 ## remove participants with withdrawn consent
 
-withdrawn = read.table(paste0(dataDir, '/participant-exclusions20181016.csv'))
+withdrawn = read.table(paste0(dataDir, '/participant-exclusions20200205.csv'))
 
 print(head(withdrawn))
 i = which(data$eid %in% withdrawn$V1)
 print(length(i))
 numRemoved = length(i)
 if (numRemoved>0) {
-	data = data(-i,)
+	data = data[-i,]
 }
 
 print(paste0('Num participants withdrawn: ', numRemoved))
@@ -173,6 +173,6 @@ print(paste0('Num: ', nrow(data)))
 
 
 
-write.table(data, paste0(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542.csv'), sep=',', row.names=FALSE)
+write.table(data, paste0(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542-newdeath.csv'), sep=',', row.names=FALSE)
 
 

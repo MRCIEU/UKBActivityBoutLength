@@ -3,7 +3,7 @@
 local dataDir : env PROJECT_DATA
 local resDir : env RES_DIR
 
-insheet using "`dataDir'/data-for-confounder-table-39441-39542.csv", clear comma names
+insheet using "`dataDir'/data-for-confounder-table-39441-39542-newdeath.csv", clear comma names
 
 
 
@@ -53,8 +53,8 @@ destring autumn, replace
 
 * generate binary variable denoting whether participant has died
 gen deathoccur  = .
-replace deathoccur = 0 if datedeath0 ==""
-replace deathoccur = 1 if datedeath0 !="" & datedeath0>"2015-12-30"
+replace deathoccur = 0 if datedeath0 =="NA"
+replace deathoccur = 1 if datedeath0 !="NA" & datedeath0>"2015-12-30"
 
 
 

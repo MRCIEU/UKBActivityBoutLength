@@ -7,7 +7,7 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 
 	##
 	## get our original sample for which we try to derive activity bouts data
-	phenos = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542.csv', sep=''), header=1, sep=',')
+	phenos = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542-newdeath.csv', sep=''), header=1, sep=',')
 
 	print(dim(phenos))
 
@@ -73,17 +73,6 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 	### mortality variables
 
 
-	##
-	## check date death columns - there is one value in datadeath1
-
-	# there is one value in datadeath1
-	print(length(which(!is.null(data$datedeath1))))
-
-	# check it is the same as in datedeath0
-	ix = which(!is.null(data$datedeath1))
-	print(paste0('one non null value in datedeath1 col is in datedeath0 col? ', data$datedeath1[ix] == data$datedeath0[ix]))
-
-
 	###
         ### format dates
 
@@ -101,17 +90,17 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 	
 	## find those who died after the end of follow-up and change their datedeath to NA - i.e. they did not die during followup period.
 
-	# scottish assessment centres (ids 11004 and 11005) - 30th November 2016 
-	censorDateScot = strptime('2016-11-30', format='%Y-%m-%d')
+	# scottish assessment centres (ids 11004 and 11005) - 31st December 2019
+	censorDateScot = strptime('2019-12-31', format='%Y-%m-%d')
 	ixS = which((data$assesscentre %in% c(11004,11005)) & difftime(censorDateScot, data$datedeath0, units="days")<0)
 
 	print(paste0("number of participants of scottish assessment centres who died after censor date: ", length(ixS)))
 	#print(data[ixS,c('datedeath0', 'assesscentre')])
 	data$datedeath0[ixS] = NA
 
-	# english and welsh assessment centres - 31st January 2018 
+	# english and welsh assessment centres - 31st December 2019
 
-	censorDateEngWel = strptime('2018-01-31', format='%Y-%m-%d')
+	censorDateEngWel = strptime('2019-12-31', format='%Y-%m-%d')
         ixEW = which( (!(data$assesscentre %in% c(11004,11005))) & difftime(censorDateEngWel, data$datedeath0, units="days")<0)
 
 	print(paste0("number of participants of english/welsh assessment centres who died after censor date: ", length(ixEW)))

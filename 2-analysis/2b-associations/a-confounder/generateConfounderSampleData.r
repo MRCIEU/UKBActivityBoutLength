@@ -13,7 +13,7 @@ insampledata = insampledata[,c('eid', 'insample'), drop=FALSE]
 
 
 # load original data
-origdata = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-39441-39542.csv', sep=''), header=1, sep=',')
+origdata = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-39441-39542-newdeath.csv', sep=''), header=1, sep=',')
 print(dim(origdata))
 origdata = origdata[which(!is.na(origdata$accelaccept)),]
 print(dim(origdata))
@@ -44,7 +44,7 @@ confs = getConfounders(alldata)
 alldata = cbind(alldata, confs)
 
 # save data with insample flag
-outfile = paste0(dataDir, '/data-for-confounder-table-39441-39542.csv')
+outfile = paste0(dataDir, '/data-for-confounder-table-39441-39542-newdeath.csv')
 write.table(alldata, outfile, row.names=FALSE, sep=',')
 
 

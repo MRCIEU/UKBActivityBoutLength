@@ -78,13 +78,6 @@ destring bmi, replace
 
 
 
-replace seasoncos = "" if seasoncos == "NA"
-destring seasoncos, replace
-
-replace seasonsin = "" if seasonsin == "NA"
-destring seasonsin, replace
-
-
 *** age
 
 summ age if insample == 0

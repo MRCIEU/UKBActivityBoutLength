@@ -3,12 +3,12 @@
 getConfounders <- function(data) {
 
 	# sex: 31
-	# age: 21003
+	# age: age at accelwearstart
 	# ethnicity: 21000
 	# education: 6138
 	# area-based socioeconomic position: 189
 
-	conf = data[,c('eid', 'sex', 'townsend', 'income', 'smokestatus')]
+	conf = data[,c('eid', 'sex', 'survivalStartAge', 'townsend', 'income', 'smokestatus')]
 
 
 	##
@@ -65,11 +65,14 @@ getConfounders <- function(data) {
         ix = which(data$education0 == -7)
         conf$ednone[ix] = 1
 
-	seasons = getSeasonIndicators(data[,c('eid', 'accelwearstartdate')])
-	conf$winter = seasons$winter
-	conf$spring = seasons$spring
-	conf$summer = seasons$summer
-	conf$autumn = seasons$autumn
+
+	# get day of the year
+	data$acceldayofyear <- as.numeric(strftime(data$accelwearstartdate, format = "%j"))
+	print(paste0('day of year. min:', min(data$acceldayofyear), ' max: ', max(data$acceldayofyear)))
+
+	conf$seasonCos = cos(2*pi*data$acceldayofyear/365)
+	conf$seasonSin = sin(2*pi*data$acceldayofyear/365)
+
 	
         conf$eid = NULL
 

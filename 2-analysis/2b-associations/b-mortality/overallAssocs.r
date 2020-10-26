@@ -7,11 +7,11 @@ overallAssocs <- function(mydata, confs, confsAll, version, hybrid=FALSE) {
 
 if (hybrid==TRUE) {
 	resfile=paste0(Sys.getenv('RES_DIR'), '/results-overall-swapping-',version,'-hybrid.csv')
-	classes = c('overall_classSleep', 'overall_classSed', 'overall_100mg', 'overall_classLight')
+	classes = c('overall_classSleep', 'overall_classSed', 'overall_classLight', 'overall_100mg')
 }
 else {
 	resfile=paste0(Sys.getenv('RES_DIR'), '/results-overall-swapping-',version,'-predicted.csv')
-	classes = c('overall_classSleep', 'overall_classSed', 'overall_classWalk', 'overall_classMod', 'overall_classLight')
+	classes = c('overall_classSleep', 'overall_classSed', 'overall_classWalk', 'overall_classLight', 'overall_classMod')
 }
 
 write('base,comp,test,estimate,beta,lower,upper,pvalue,schoenP,adjusted', file=resfile, append='FALSE')

@@ -81,57 +81,30 @@ aggregateBoutsForPerson <- function(bouts, daytimeonly=FALSE) {
 	}
 
 	# strata of bout length
-        # 1-15 minutes
-        # 16-40
-	# 41+
+        # 1 minute
+	# 2-9 minutes
+	# 10-15 minutes
+        # 16-40 minutes
+	# 41+ minutes
 
-	# strata of activity level
-	# 100 - 125
-	# 126 - 150
-	# 151 +
-
-	al1 = 125
-	al2 = 150
-
-	# check that bouts are always AUC>=100
-	ix0 = which(bouts$auc <= 100)
-#	print('bouts < 100mg')
-#	print(length(ix0))
-
-
-	ix11 = which(bouts$duration <= 15 & bouts$auc <= al1)
-	ix12 = which(bouts$duration <= 15 & bouts$auc > al1 & bouts$auc <= al2)
-	ix13 = which(bouts$duration <= 15 & bouts$auc > al2)
-
-	ix21 = which(bouts$duration > 15 & bouts$duration <= 40 & bouts$auc <= al1)
-        ix22 = which(bouts$duration > 15 & bouts$duration <= 40 & bouts$auc > al1 & bouts$auc <= al2)
-        ix23 = which(bouts$duration > 15 & bouts$duration <= 40 & bouts$auc > al2)
-
-	ix31 = which(bouts$duration > 40 & bouts$auc <= al1)
-        ix32 = which(bouts$duration > 40 & bouts$auc > al1 & bouts$auc <= al2)
-        ix33 = which(bouts$duration > 40 & bouts$auc > al2)
+	# strata of each bout length
+	ix1 = which(bouts$duration <= 9)
+	ix2 = which(bouts$duration > 9 & bouts$duration <= 15)
+	ix3 = which(bouts$duration > 15 & bouts$duration <= 40)
+	ix4 = which(bouts$duration > 40)
 
 	# derive the time spent in bouts in each strata overall
 
-	dur1_auc1 = sum(bouts$duration[ix11])
-	dur1_auc2 = sum(bouts$duration[ix12])
-	dur1_auc3 = sum(bouts$duration[ix13])
-	dur2_auc1 = sum(bouts$duration[ix21])
-        dur2_auc2 = sum(bouts$duration[ix22])
-        dur2_auc3 = sum(bouts$duration[ix23])
-	dur3_auc1 = sum(bouts$duration[ix31])
-        dur3_auc2 = sum(bouts$duration[ix32])
-        dur3_auc3 = sum(bouts$duration[ix33])
+	dur1 = sum(bouts$duration[ix1])
+	dur2 = sum(bouts$duration[ix2])
+	dur3 = sum(bouts$duration[ix3])
+	dur4 = sum(bouts$duration[ix4])
 
-	n_11 = length(ix11)
-	n_12 = length(ix12)
-	n_13 = length(ix13)
-	n_21 = length(ix21)
-	n_22 = length(ix22)
-	n_23 = length(ix23)
-	n_31 = length(ix31)
-	n_32 = length(ix32)
-	n_33 = length(ix33)
-	return(data.frame(dur1_auc1, dur1_auc2, dur1_auc3, dur2_auc1, dur2_auc2, dur2_auc3, dur3_auc1, dur3_auc2, dur3_auc3, n_11, n_12, n_13, n_21, n_22, n_23, n_31, n_32, n_33))
+	n_1 = length(ix1)
+	n_2 = length(ix2)
+	n_3 = length(ix3)
+	n_4 = length(ix4)
+	
+	return(data.frame(dur1, dur2, dur3, dur4, n_1, n_2, n_3, n_4))
 	
 }

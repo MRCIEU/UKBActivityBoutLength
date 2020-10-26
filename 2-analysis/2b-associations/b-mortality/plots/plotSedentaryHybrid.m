@@ -58,11 +58,10 @@ set(gca,'XTickLabel', baselinelabels);
 set(gca,'XTick', [1.4;2.4;3.4]);
 set(gca,'XTickLabelRotation', 90);
 
-lx=legend(hx, {'Sed 1-15mins'; 'Sed 16-40mins'; 'Sed 41+mins'; 'Sleep';'Light';'MVPA'}, 'location', 'southeast');
-%lx=legend(hx, comparisons, 'location', 'southeast');
+lx=legend(hx, {'Sed 1-15mins'; 'Sed 16-40mins'; 'Sed 41+mins'; 'Sleep';'Light';'MVPA'}, 'location', 'south', 'NumColumns',2);
 lx.FontSize = 12;
 
-ylim([0.6, 1.3]);
+ylim([0.7, 1.3]);
 xlabel('Baseline sedentary bout length stratum', 'FontSize', 14);
 
 ylabel('Hazard ratio');

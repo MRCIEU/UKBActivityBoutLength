@@ -61,10 +61,10 @@ set(gca,'XTick', [1.4:1:4.4]);
 set(gca,'XTickLabelRotation', 90);
 
 labelsx = {'All';'Sleep';'Sedentary';'Light';'MVPA'};
-lx=legend(hx,labelsx, 'location', 'SouthEast');
+lx=legend(hx,labelsx, 'location', 'South');
 lx.FontSize = 12;
 
-ylim([0.8, 1.2]);
+ylim([0.7, 1.3]);
 xlabel('Baseline activity category', 'FontSize', 14);
 
 ylabel('Hazard ratio');

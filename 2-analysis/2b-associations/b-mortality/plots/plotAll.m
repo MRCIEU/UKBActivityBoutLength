@@ -32,6 +32,21 @@ plotMVPAHybrid
 plotOverallHybrid
 plotSedentaryHybrid
 
+% sensitivity starting 1 year after accel wear
+version='CDsensitivity1';
+type='hybrid';
+plotMVPAHybrid
+plotOverallHybrid
+plotSedentaryHybrid
+
+
+% sensitivity starting 1 year after accel wear
+version='CDsensitivity2';
+type='hybrid';
+plotMVPAHybrid
+plotOverallHybrid
+plotSedentaryHybrid
+
 
 % other day imputed version
 
@@ -40,3 +55,5 @@ type='hybrid';
 plotMVPAHybrid
 plotOverallHybrid
 plotSedentaryHybrid
+
+

@@ -3,7 +3,7 @@
 local dataDir : env PROJECT_DATA
 local resDir : env RES_DIR
 
-insheet using "`dataDir'/data-for-confounder-table-39441-39542-newdeath.csv", clear comma names
+insheet using "`dataDir'/data-for-confounder-table-43777.csv", clear comma names
 
 
 
@@ -13,6 +13,7 @@ log using "`resDir'/confounder-assoc.log", replace
 
 *** convert formats from string to numeric
 
+summ
 
 
 replace ed1college = "" if ed1college == "NA"
@@ -68,14 +69,20 @@ destring income, replace
 replace income = . if income == -1
 replace	income = . if income ==	-3
 
-replace numillness = "" if numillness == "NA"
-destring numillness, replace
 
-replace numillnesscancer = "" if numillnesscancer == "NA"
-destring numillnesscancer, replace
+
+
 
 replace bmi = "" if bmi == "NA"
 destring bmi, replace
+
+
+
+replace seasoncos = "" if seasoncos == "NA"
+destring seasoncos, replace
+
+replace seasonsin = "" if seasonsin == "NA"
+destring seasonsin, replace
 
 
 *** age
@@ -133,19 +140,26 @@ tab income if insample == 1
 logistic insample income
 
 
-*** number of cancers
+***  disease confounders
 
-summ numillnesscancer if insample == 0
-summ numillnesscancer if insample == 1
 
-logistic insample numillnesscancer
+tab prev_firstocc_circ if insample == 0
+tab prev_firstocc_circ if insample ==1
 
-*** number of non-cancer illnesses
+logistic insample prev_firstocc_circ
 
-summ numillness if insample == 0
-summ numillness if insample == 1
 
-logistic insample numillness
+tab prev_firstocc_resp if insample == 0
+tab prev_firstocc_resp if insample ==1
+
+logistic insample prev_firstocc_resp
+
+tab prev_firstocc_canc if insample == 0 
+tab prev_firstocc_canc if insample == 1
+
+logistic insample prev_firstocc_canc
+
+
 
 *** bmi
 
@@ -189,7 +203,6 @@ tab spring if insample == 1
 tab summer if insample == 1
 
 logistic insample autumn spring summer
-
 
 
 

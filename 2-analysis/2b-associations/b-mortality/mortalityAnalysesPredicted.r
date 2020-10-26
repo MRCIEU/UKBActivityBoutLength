@@ -20,9 +20,6 @@ dataCD = loadData(version)
 confs = getConfounderVariables(dataCD)
 confsAll = getConfounderVariablesAll(dataCD)
 
-dataCD$dur1sed = dataCD$dur1_auc1__classSed + dataCD$dur1_auc2__classSed + dataCD$dur1_auc3__classSed
-dataCD$dur2sed = dataCD$dur2_auc1__classSed + dataCD$dur2_auc2__classSed + dataCD$dur2_auc3__classSed
-dataCD$dur3sed = dataCD$dur3_auc1__classSed + dataCD$dur3_auc2__classSed + dataCD$dur3_auc3__classSed
 
 # convert to average per day
 dataCD$dur1sed = dataCD$dur1sed/dataCD$num_days
@@ -34,6 +31,11 @@ dataCD$overall_classMod = dataCD$overall_classMod / dataCD$num_days
 dataCD$overall_classWalk = dataCD$overall_classWalk / dataCD$num_days
 dataCD$overall_classSed = dataCD$overall_classSed / dataCD$num_days
 
+
+dataCD$dur1mod = dataCD$dur1mod/dataCD$num_days
+dataCD$dur2mod = dataCD$dur2mod/dataCD$num_days
+dataCD$dur3mod = dataCD$dur3mod/dataCD$num_days
+dataCD$dur4mod = dataCD$dur4mod/dataCD$num_days
 
 
 
@@ -67,17 +69,6 @@ sedentaryBoutLengthAnalysisPredicted(dataCD, confs, confsAll, version)
 ######
 ###### Moderate-vigorous bout strata analysis
 
-dataCD$dur1mod = dataCD$dur1_auc1__classMod + dataCD$dur1_auc2__classMod + dataCD$dur1_auc3__classMod
-dataCD$dur2mod = dataCD$dur2_auc1__classMod + dataCD$dur2_auc2__classMod + dataCD$dur2_auc3__classMod
-dataCD$dur3mod = dataCD$dur3_auc1__classMod + dataCD$dur3_auc2__classMod + dataCD$dur3_auc3__classMod
-
-
-# convert to average per day
-dataCD$dur1mod = dataCD$dur1mod/dataCD$num_days
-dataCD$dur2mod = dataCD$dur2mod/dataCD$num_days
-dataCD$dur3mod = dataCD$dur3mod/dataCD$num_days
-
-
 
 print('###############################################')
 print('#########   MOD BOUT LENGTH STRATA   ##########')
@@ -95,3 +86,5 @@ sink()
 
 mortalityAnalysesPredicted('CD')
 mortalityAnalysesPredicted('imp')
+
+

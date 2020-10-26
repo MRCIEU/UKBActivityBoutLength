@@ -6,28 +6,28 @@ allx = dataset('file', strcat(resDir, '/results-MVPA-',version,'-',type,'.csv'),
 
 h=figure('DefaultAxesFontSize',14);
 
-hold on;plot([0.8,3.8], [1, 1], '--');
+hold on;plot([0.8,5.8], [1, 1], '--');
 
-baselines={'dur1mod100';'dur2mod100';'dur3mod100'};
-comparisons={'dur1mod100';'dur2mod100';'dur3mod100';'overall_classSleep';'overall_classSed';'overall_classLight'};
+baselines={'dur1mod100';'dur2mod100';'dur3mod100';'dur4mod100'};
+comparisons={'dur1mod100';'dur2mod100';'dur3mod100';'dur4mod100';'overall_classSleep';'overall_classSed';'overall_classLight'};
 
-colorx = {'[0.8 0.2 0.2]';'[0.8 0.2 0.2]';'[1.0 1.0 1.0]'; '[0.1 0.1 0.6]'; 'white'; 'cyan'};
-markerEdgecolorx = {'[0.8 0.2 0.2]';'[0.4 0.0 0.0]';'[0.4 0.0 0.2]'; '[0.1 0.1 0.6]'; '[0.5 0.8 0.0]'; 'cyan'};
-linecolorx = {'[0.8 0.2 0.2]';'[0.8 0.2 0.2]';'[0.8 0.2 0.2]'; '[0.1 0.1 0.6]'; '[0.5 0.8 0.0]'; 'cyan'};
+colorx = {'[0.8 0.2 0.2]';'[0.4 0.0 0.2]';'[1.0 1.0 1.0]';'[1.0 1.0 1.0]'; '[0.1 0.1 0.6]'; 'white'; 'cyan'};
+markerEdgecolorx = {'[0.8 0.2 0.2]';'[0.4 0.0 0.0]';'[0.4 0.0 0.2]'; '[1.0 0.5 0.5]'; '[0.1 0.1 0.6]'; '[0.5 0.8 0.0]'; 'cyan'};
+linecolorx = {'[0.8 0.2 0.2]';'[0.8 0.2 0.2]';'[0.8 0.2 0.2]';'[0.8 0.2 0.2]'; '[0.1 0.1 0.6]'; '[0.5 0.8 0.0]'; 'cyan'};
 
-markersx = {'s';'s';'s';'*';'o';'x'};
+markersx = {'s';'s';'s';'s';'*';'o';'x'};
 markersizex = 11;
 
 
 
 hx = [];
 
-for i=1:3
+for i=1:4
 	basex = baselines{i};
 
 	count = 1;
 
-	for j=1:6
+	for j=1:7
 
 		posx = i+(count-1)*0.1;
 
@@ -50,21 +50,21 @@ for i=1:3
 
 end
 
-labelx = {'MVPA 1-15mins'; 'MVPA 16-40mins'; 'MVPA 41+mins'};
+labelx = {'MVPA 1-9 min'; 'MVPA 10-15mins'; 'MVPA 16-40mins'; 'MVPA 41+mins'};
 set(gca,'XTickLabel', labelx);
 
-set(gca,'XTick', [1.4;2.4;3.4]);
+set(gca,'XTick', [1.4;2.4;3.4;4.4]);
 set(gca,'XTickLabelRotation', 90);
 
-lx=legend(hx, {'MVPA 1-15mins'; 'MVPA 16-40mins'; 'MVPA 41+mins'; 'Sleep'; 'Sedentary'; 'Light'}, 'location', 'south');
+lx=legend(hx, {'MVPA 1-9 min'; 'MVPA 10-15mins'; 'MVPA 16-40mins'; 'MVPA 41+mins'; 'Sleep'; 'Sedentary'; 'Light'}, 'location', 'south', 'NumColumns',2);
 lx.FontSize = 12;
 
-ylim([0.6, 1.3]);
+ylim([0.7, 1.3]);
 xlabel('Baseline MVPA bout length stratum', 'FontSize', 14);
 
 ylabel('Hazard ratio');
 
-xlim([0.8, 3.8]);
+xlim([0.8, 4.8]);
 set(gca, 'YScale', 'log');
 
 saveas(h, strcat(resDir, '/fig-res-MVPA-',version,'-',type,'.pdf'));

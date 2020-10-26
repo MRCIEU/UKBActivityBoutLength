@@ -6,7 +6,7 @@ aggregateBouts <- function(version, i, daytimeonly=FALSE) {
 
 derivedDataDir=paste(Sys.getenv('HOME'), '/2016-biobank-accelerometer/data/accel/derived/', sep='')
 boutDir=paste(derivedDataDir, 'activityBouts/', sep='')
-aggDir=paste(derivedDataDir, 'boutAggregationsWithN-predicted-20190829/', sep='')
+aggDir=paste(derivedDataDir, 'boutAggregationsWithN-predicted-20200903/', sep='')
 
 	print(i)
 
@@ -110,3 +110,4 @@ aggDir=paste(derivedDataDir, 'boutAggregationsWithN-predicted-20190829/', sep=''
 	}
 
 }
+

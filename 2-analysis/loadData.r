@@ -7,7 +7,7 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 
 	##
 	## get our original sample for which we try to derive activity bouts data
-	phenos = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542-newdeath.csv', sep=''), header=1, sep=',')
+	phenos = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-subset-43777.csv', sep=''), header=1, sep=',')
 
 	print(dim(phenos))
 
@@ -61,17 +61,32 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 	}
 
 
-	## create sum across auc's within duration strata
-#	for (duri in 1:3) {
-#		boutOutcome = paste('dur', duri, '__', threshold, sep='')
-#		data[,boutOutcome] = data[,paste('dur', duri, '_auc1__', threshold, sep='')] + data[,paste('dur', duri, '_auc2__', threshold, sep='')] + data[,paste('dur', duri, '_auc3__', threshold, sep='')]
-#	}
-
 
 
 	###
 	### mortality variables
 
+	data$accelwearstartdate = strptime(data$accelwearstartdate, format='%Y-%m-%d %H:%M:%S')
+	data$accelwearenddate = data$accelwearstartdate + 7*24*60*60
+	print(mean(data$accelwearstartdate))
+        print(mean(data$accelwearenddate))	
+
+	data$survivalStartDate = data$accelwearenddate
+
+	data = createMortalityVariables(data)
+
+#	print(summary(data$survivalStartAge))
+#	print(sd(data$survivalStartAge))
+
+#	print(summary(data$survivalTime))
+#	print(sd(data$survivalTime))
+
+	return(data)
+
+}
+
+
+createMortalityVariables <- function(data) {
 
 	###
         ### format dates
@@ -79,47 +94,22 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
         library(data.table)
 	
         data$datedeath0 = strptime(data$datedeath0, format='%Y-%m-%d')
-	data$accelwearstartdate = strptime(data$accelwearstartdate, format='%Y-%m-%dT%H:%M:%S')
 
 	print(head(data$yearbirth))
 	data$yearbirth = strptime(paste0(data$yearbirth,'-07-01'), format='%Y-%m-%d')
 	print(head(data$yearbirth))
+
 
 	##
 	## change death status for those who died after censor date
 	
 	## find those who died after the end of follow-up and change their datedeath to NA - i.e. they did not die during followup period.
 
-	# scottish assessment centres (ids 11004 and 11005) - 31st December 2019
-	censorDateScot = strptime('2019-12-31', format='%Y-%m-%d')
-	ixS = which((data$assesscentre %in% c(11004,11005)) & difftime(censorDateScot, data$datedeath0, units="days")<0)
-
-	print(paste0("number of participants of scottish assessment centres who died after censor date: ", length(ixS)))
-	#print(data[ixS,c('datedeath0', 'assesscentre')])
-	data$datedeath0[ixS] = NA
-
-	# english and welsh assessment centres - 31st December 2019
-
-	censorDateEngWel = strptime('2019-12-31', format='%Y-%m-%d')
-        ixEW = which( (!(data$assesscentre %in% c(11004,11005))) & difftime(censorDateEngWel, data$datedeath0, units="days")<0)
-
-	print(paste0("number of participants of english/welsh assessment centres who died after censor date: ", length(ixEW)))
-	#print(data[ixEW,c('datedeath0', 'assesscentre')])
-	data$datedeath0[ixEW] = NA
-
-
-	##
-	## set censoring dates
-
-	data$censorDate = as.Date(NA)
-
-	# censor date for Scotland
-	ixSCens = which((data$assesscentre %in% c(11004,11005)))
-	data$censorDate[ixSCens] = censorDateScot
-
-	# censor date for England and Wales
-	ixEWCens = which(!(data$assesscentre %in% c(11004,11005)))
-	data$censorDate[ixEWCens] = censorDateEngWel
+	# censor date - 31st December 2019
+	censorDate = strptime('2019-12-31', format='%Y-%m-%d')
+	ixC = which(difftime(censorDate, data$datedeath0, units="days")<0)
+	print(paste0("number of participants who died after censor date: ", length(ixC)))
+	data$datedeath0[ixC] = NA
 
 
 	##
@@ -136,19 +126,13 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 	##
 	## create variables for mortality survival analysis
 
-	data$accelwearenddate = data$accelwearstartdate + 7*24*60*60
-
-	print(mean(data$accelwearstartdate))
-	print(mean(data$accelwearenddate))
 
 	# how many deaths in each month??
 
-        ix = which(data$assesscentre == 11004 | data$assesscentre == 11005)
-
-	data$deathMonth <- as.Date(cut(data$datedeath0, breaks = "month"))
+#        ix = which(data$assesscentre == 11004 | data$assesscentre == 11005)
+#	data$deathMonth <- as.Date(cut(data$datedeath0, breaks = "month"))
 #	print('monthly death summary for scotland assessment centres')
-#	print(table(data$deathMonth[ix]))
-	
+#	print(table(data$deathMonth[ix]))	
 #	print('monthly death summary for non-scotland assessment centres')
 #	print(table(data$deathMonth[-ix]))
 
@@ -162,29 +146,35 @@ loadData <- function(version, hybrid=FALSE, daytimeonly=FALSE) {
 	data$survivalStatus[which(data$death==1)] = 2
 
 
-
+	print('a')
 	##
 	## survivalTime
 
 	data$survivalTime = NA
 
-	# index of participants who have died
-	ix = which(!is.na(data$datedeath0))
-
 	# survival time for those who have died
-	data$survivalTime[ix] = difftime(data$datedeath0[ix], data$accelwearenddate[ix], units="days")/365.25
+	ix = which(!is.na(data$datedeath0))
+	print('b')
+	data$survivalTime[ix] = difftime(data$datedeath0[ix], data$survivalStartDate[ix], units="days")/365.25
+	print('c')
 
 	# survivalTime for those still alive
 	ixNoDeath = which(is.na(data$datedeath0))
-	data$survivalTime[ixNoDeath] = difftime(data$censorDate[ixNoDeath], data$accelwearenddate[ixNoDeath], units="days")/365.25
+	data$survivalTime[ixNoDeath] = difftime(censorDate, data$survivalStartDate[ixNoDeath], units="days")/365.25
 
-
+	print('d')
+	print(head(data$survivalTime))
+	data$survivalTime = as.numeric(data$survivalTime)
+	print('e')
 
 	##
 	## survival start age - age when accelerometer was first worn	
 
-	data$survivalStartAge = difftime(data$accelwearenddate, data$yearbirth, units="days")/365.25
+	data$survivalStartAge = difftime(data$survivalStartDate, data$yearbirth, units="days")/365.25
 	
+	print('aaaaa')
+	print(class(data$survivalStartAge))
+	data$survivalStartAge = as.numeric(data$survivalStartAge)
 
 	##
 	## survival end age - age when participant either died or is censored (age at 8th February 2018, last date of death in our sample)
@@ -211,10 +201,10 @@ loadBoutAggregations <- function(dataDir, version, hybrid) {
 	while (i <= 93001) {
 
 		if (hybrid == TRUE) {
-			aggfile = paste(dataDir, '/accel/derived/boutAggregationsWithN-hybrid-20190829/agg-',i,'-',version,'.csv', sep='')
+			aggfile = paste(dataDir, '/accel/derived/boutAggregationsWithN-hybrid-20200903/agg-',i,'-',version,'.csv', sep='')
 		}
 		else {
-			aggfile = paste(dataDir, '/accel/derived/boutAggregationsWithN-predicted-20190829/agg-',i,'-',version,'.csv', sep='')
+			aggfile = paste(dataDir, '/accel/derived/boutAggregationsWithN-predicted-20200903/agg-',i,'-',version,'.csv', sep='')
 		}
 
 		agg = read.table(aggfile, header=1, sep=',')
@@ -231,14 +221,21 @@ loadBoutAggregations <- function(dataDir, version, hybrid) {
 	data = aggAll
 
 
+#	print(head(data))
+
 	if (hybrid==TRUE) {
 
 		# the 'overall' variables are for the predicted version, so we calculate them for the hybrid approach using the strata variables
 
-		data$overall_classLight = rowSums(data[,c('dur1_auc1__classLight', 'dur1_auc2__classLight', 'dur1_auc3__classLight', 'dur2_auc1__classLight','dur2_auc2__classLight', 'dur2_auc3__classLight', 'dur3_auc1__classLight', 'dur3_auc2__classLight', 'dur3_auc3__classLight')])
-		data$overall_classSleep = rowSums(data[,c('dur1_auc1__classSleep', 'dur1_auc2__classSleep', 'dur1_auc3__classSleep', 'dur2_auc1__classSleep','dur2_auc2__classSleep', 'dur2_auc3__classSleep', 'dur3_auc1__classSleep', 'dur3_auc2__classSleep', 'dur3_auc3__classSleep')])
-		data$overall_classSed = rowSums(data[,c('dur1_auc1__classSed', 'dur1_auc2__classSed', 'dur1_auc3__classSed', 'dur2_auc1__classSed', 'dur2_auc2__classSed', 'dur2_auc3__classSed', 'dur3_auc1__classSed', 'dur3_auc2__classSed', 'dur3_auc3__classSed')])		
-		data$overall_100mg = rowSums(data[,c('dur1_auc1__100mg', 'dur1_auc2__100mg', 'dur1_auc3__100mg', 'dur2_auc1__100mg', 'dur2_auc2__100mg', 'dur2_auc3__100mg', 'dur3_auc1__100mg', 'dur3_auc2__100mg', 'dur3_auc3__100mg')])
+		data$overall_classLight = rowSums(data[,c('dur1__classLight', 'dur2__classLight', 'dur3__classLight', 'dur4__classLight')])
+		data$overall_classSleep = rowSums(data[,c('dur1__classSleep', 'dur2__classSleep', 'dur3__classSleep', 'dur4__classSleep')])
+		data$overall_classSed = rowSums(data[,c('dur1__classSed', 'dur2__classSed', 'dur3__classSed', 'dur4__classSed')])
+		data$overall_100mg = rowSums(data[,c('dur1__100mg', 'dur2__100mg', 'dur3__100mg', 'dur4__100mg')])
+
+		colnames(data)[which(colnames(data)=="dur1__100mg")] = "dur1mod100"
+		colnames(data)[which(colnames(data)=="dur2__100mg")] = "dur2mod100"
+		colnames(data)[which(colnames(data)=="dur3__100mg")] = "dur3mod100"
+		colnames(data)[which(colnames(data)=="dur4__100mg")] = "dur4mod100"
 
 	} else {
 
@@ -260,8 +257,23 @@ loadBoutAggregations <- function(dataDir, version, hybrid) {
 
 		}
 
+		colnames(data)[which(colnames(data)=="dur1__classMod")] = "dur1mod"
+		colnames(data)[which(colnames(data)=="dur2__classMod")] = "dur2mod"
+		colnames(data)[which(colnames(data)=="dur3__classMod")] = "dur3mod"
+		colnames(data)[which(colnames(data)=="dur4__classMod")] = "dur4mod"
+
+
 	}
 
+
+	colnames(data)[which(colnames(data)=="dur1__classSed")] = "dur1sed"
+	colnames(data)[which(colnames(data)=="dur2__classSed")] = "dur2sed"
+	colnames(data)[which(colnames(data)=="dur3__classSed")] = "dur3sed"
+	colnames(data)[which(colnames(data)=="dur4__classSed")] = "dur4sed"
+
+	data$dur1sed = data$dur1sed + data$dur2sed
+	data$dur2sed = data$dur3sed
+	data$dur3sed = data$dur4sed
 
 
 	return(data)

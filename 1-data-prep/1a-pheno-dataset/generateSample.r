@@ -4,7 +4,7 @@ dataDir=Sys.getenv('PROJECT_DATA')
 
 
 # read main phenotype data
-data = read.table(paste0(dataDir, '/phenotypes/derived/analysis-dataset-39441-39542-newdeath.csv'), sep=',', header=TRUE)
+data = read.table(paste0(dataDir, '/phenotypes/derived/analysis-dataset-43777.csv'), sep=',', header=TRUE)
 
 # check for any duplicates
 print(paste0('Num: ', length(data$eid)))
@@ -13,7 +13,7 @@ print(paste0('Num unique: ', length(unique(data$eid))))
 
 
 # restrict to those who wore the accelerometer
-i = which(data$accelaccept==2)
+i = which(!is.na(data$accelwearstartdate))
 numRemoved = nrow(data) - length(i)
 data = data[i,]
 print(paste0('Num with no accel data: ', numRemoved))
@@ -25,10 +25,10 @@ print(paste0('Num: ', nrow(data)))
 ##
 ## remove participants with withdrawn consent
 
-withdrawn = read.table(paste0(dataDir, '/participant-exclusions20200205.csv'))
+withdrawn = read.table(paste0(dataDir, '/participant-exclusions20200828.csv'), header=1)
 
 print(head(withdrawn))
-i = which(data$eid %in% withdrawn$V1)
+i = which(data$eid %in% withdrawn$pid)
 print(length(i))
 numRemoved = length(i)
 if (numRemoved>0) {
@@ -59,7 +59,7 @@ print(paste0('Num: ', nrow(data)))
 ##
 ## remove participants where accel could not be calibrated
         
-i = which(is.nan(data$accelgoodcal) ==0)
+i = which(data$accelgoodcal ==1)
 numRemoved = nrow(data) - length(i)
 data = data[i,]
 
@@ -158,12 +158,7 @@ print(paste0('Num: ', nrow(data)))
 
 
 ##
-## remove participants with no number of illnesses value
-i = which(!is.na(data$numillness))
-numRemoved = nrow(data) - length(i)
-data = data[i,]
-print(paste0('Num with no non-cancer illness number: ', numRemoved))
-print(paste0('Num: ', nrow(data)))
+## remove participants with no number of cancers value
 
 i = which(!is.na(data$numillnesscancer))
 numRemoved = nrow(data) - length(i)
@@ -173,6 +168,6 @@ print(paste0('Num: ', nrow(data)))
 
 
 
-write.table(data, paste0(dataDir, '/phenotypes/derived/analysis-dataset-subset-39441-39542-newdeath.csv'), sep=',', row.names=FALSE)
+write.table(data, paste0(dataDir, '/phenotypes/derived/analysis-dataset-subset-43777.csv'), sep=',', row.names=FALSE)
 
 

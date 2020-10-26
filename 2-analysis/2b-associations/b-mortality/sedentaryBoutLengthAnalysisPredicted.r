@@ -132,19 +132,19 @@ coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, 
 
 # baseline strata 1: leave out 1 to do swapping between short sedentary bouts and other states
 
-covars = mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')]
+covars = mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')]
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur1sed', 'NONE')
 
 
 # baseline strata 2: leave out 2 to do swapping between medium sedentary bouts and other states
 
-covars = mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')]
+covars = mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')]
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur2sed', 'NONE')
 
 
 # baseline strata 3: leave out 3 to do swapping between long sedentary bouts and other states
 
-covars = mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')]
+covars = mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')]
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur3sed', 'NONE')
 
 
@@ -154,19 +154,19 @@ coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, 
 
 # baseline strata 1: leave out 1 to do swapping between short sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confs)
+covars = cbind(mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confs)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur1sed', 'SENS')
 
 
 # baseline strata 2: leave out 2 to do swapping between medium sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confs)
+covars = cbind(mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confs)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur2sed', 'SENS')
 
 
 # baseline strata 3: leave out 3 to do swapping between long sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confs)
+covars = cbind(mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confs)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur3sed', 'SENS')
 
 ###
@@ -174,19 +174,19 @@ coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, 
 
 # baseline strata 1: leave out 1 to do swapping between short sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confsAll)
+covars = cbind(mydata[,c('dur2sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confsAll)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur1sed', 'ALL')
 
 
 # baseline strata 2: leave out 2 to do swapping between medium sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confsAll)
+covars = cbind(mydata[,c('dur1sed', 'dur3sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confsAll)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur2sed', 'ALL')
 
 
 # baseline strata 3: leave out 3 to do swapping between long sedentary bouts and other states
 
-covars = cbind(mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classMod', 'overall_classLight')], confsAll)
+covars = cbind(mydata[,c('dur1sed', 'dur2sed', 'overall_classSleep', 'overall_classWalk', 'overall_classLight', 'overall_classMod')], confsAll)
 coxAssoc(mydata$survivalStartAge, mydata$survivalEndAge, mydata$survivalStatus, covars, resfile, 'dur3sed', 'ALL')
 
 

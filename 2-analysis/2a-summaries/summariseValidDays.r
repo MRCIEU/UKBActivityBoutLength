@@ -7,7 +7,7 @@
 source('../loadData.r')
 resdir = Sys.getenv('RES_DIR')
 
-
+sink(paste0(resdir, '/summary-valid-days.txt'))
 
 ##
 ## Complete days version
@@ -18,6 +18,7 @@ pdf(paste0(resdir,'/hist-validdays-cd.pdf'))
 barplot(table(dataCD$num_days), xlab='Number of valid days', cex.axis=1.5, cex.lab=1.5, cex.names=1.5)
 dev.off()
 
+print('distribution of num valid days')
 tabImp = table(dataCD$num_days)
 print(tabImp)
 print(tabImp[6])
@@ -36,6 +37,7 @@ pdf(paste0(resdir,'/hist-validdays-imp.pdf'))
 barplot(table(dataImp$num_days), xlab='Number of valid days', cex.axis=1.5, cex.lab=1.5, cex.names=1.5)
 dev.off()
 
+print('distribution of num valid days')
 tabImp = table(dataImp$num_days)
 print(tabImp)
 print(tabImp[6])
@@ -44,4 +46,7 @@ print(sum(tabImp))
 print('% with some missing data (for paper text):')
 misnum = tabImp[6]/sum(tabImp)
 print(misnum)
+
+
+sink()
 

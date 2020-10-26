@@ -19,6 +19,15 @@ personYears <- function(version) {
 
 	print(paste0('Total person years: ', totalPersonYears))
 
+	meanPersonYears = mean(data$survivalTime)
+
+	print(paste0('Mean person years: ', meanPersonYears))
+
+	sdPersonYears	= sd(data$survivalTime)
+        print(paste0('SD person years: ', sdPersonYears))
+
+
+
 
 	sink()
 

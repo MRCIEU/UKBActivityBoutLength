@@ -15,17 +15,12 @@ mortalityAnalysesHybrid <- function(version) {
 
 sink(paste0(Sys.getenv('RES_DIR'), '/mortality-assoc-log-hybrid-',version,'.txt'))
 
-
 library("survival")
-library("survminer")
- 
+#library("survminer")
+
 dataCD = loadData(version, TRUE)
 confs = getConfounderVariables(dataCD)
 confsAll = getConfounderVariablesAll(dataCD)
-
-dataCD$dur1sed = dataCD$dur1_auc1__classSed + dataCD$dur1_auc2__classSed + dataCD$dur1_auc3__classSed
-dataCD$dur2sed = dataCD$dur2_auc1__classSed + dataCD$dur2_auc2__classSed + dataCD$dur2_auc3__classSed
-dataCD$dur3sed = dataCD$dur3_auc1__classSed + dataCD$dur3_auc2__classSed + dataCD$dur3_auc3__classSed
 
 # convert to average per day
 dataCD$dur1sed = dataCD$dur1sed/dataCD$num_days
@@ -36,12 +31,10 @@ dataCD$overall_classLight = dataCD$overall_classLight / dataCD$num_days
 dataCD$overall_classSed = dataCD$overall_classSed / dataCD$num_days
 dataCD$overall_100mg = dataCD$overall_100mg / dataCD$num_days
 
-dataCD$dur1mod100 = dataCD$dur1_auc1__100mg + dataCD$dur1_auc2__100mg + dataCD$dur1_auc3__100mg
-dataCD$dur2mod100 = dataCD$dur2_auc1__100mg + dataCD$dur2_auc2__100mg + dataCD$dur2_auc3__100mg
-dataCD$dur3mod100 = dataCD$dur3_auc1__100mg + dataCD$dur3_auc2__100mg + dataCD$dur3_auc3__100mg
 dataCD$dur1mod100 = dataCD$dur1mod100/dataCD$num_days
 dataCD$dur2mod100 = dataCD$dur2mod100/dataCD$num_days
 dataCD$dur3mod100 = dataCD$dur3mod100/dataCD$num_days
+dataCD$dur4mod100 = dataCD$dur4mod100/dataCD$num_days
 
 
 #datadir=Sys.getenv('PROJECT_DATA');
@@ -89,6 +82,69 @@ print('###############################################')
 
 
 mvpaBoutLengthAnalysisHybrid(dataCD, confs, confsAll, version)
+
+
+
+
+
+print('###############################################')
+print('#########   SENSTIVITY - 1 YEAR      ##########')
+print('###############################################')
+
+
+## sensitivity excluding those who died before 1 year after accel wear
+
+# shift survival start 1 year
+dataCD$survivalStartAge = dataCD$survivalStartAge + 1
+
+# remove those already died
+ix = which(dataCD$survivalStartAge >= dataCD$survivalEndAge)
+dataCD = dataCD[-ix,]
+confs = confs[-ix,]
+confsAll = confsAll[-ix,]
+
+version1 = paste0(version, 'sensitivity1')
+
+overallAssocs(dataCD, confs, confsAll, version1, TRUE)
+sedentaryBoutLengthAnalysisHybrid(dataCD, confs, confsAll, version1)
+mvpaBoutLengthAnalysisHybrid(dataCD, confs, confsAll, version1)
+
+
+
+
+print('###############################################')
+print('#########   SENSTIVITY - 2 YEAR      ##########')
+print('###############################################')
+
+
+## sensitivity excluding those who died before 2 years after accel wear
+
+# shift survival start 1 year more
+dataCD$survivalStartAge = dataCD$survivalStartAge + 1
+
+# remove those already died
+ix = which(dataCD$survivalStartAge >= dataCD$survivalEndAge)
+dataCD = dataCD[-ix,]
+confs = confs[-ix,]
+confsAll = confsAll[-ix,]
+
+version2 = paste0(version, 'sensitivity2')
+
+overallAssocs(dataCD, confs, confsAll, version2, TRUE)
+sedentaryBoutLengthAnalysisHybrid(dataCD, confs, confsAll, version2)
+mvpaBoutLengthAnalysisHybrid(dataCD, confs, confsAll, version2)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sink()

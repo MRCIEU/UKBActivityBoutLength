@@ -1,3 +1,4 @@
+## Adapted from code provided by Duncan McGregor https://doi.org/10.1177/0962280219864125
 
 
 resDir = Sys.getenv('RES_DIR')

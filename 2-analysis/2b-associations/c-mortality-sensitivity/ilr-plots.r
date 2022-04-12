@@ -1,6 +1,9 @@
 
 ## plotting run locally
 
+resDir = Sys.getenv('RES_DIR')
+
+
 library(ggplot2)
 
 el2 <- theme_bw(16) +  theme(legend.position="bottom",legend.title = element_blank())
@@ -8,8 +11,7 @@ el2 <- theme_bw(16) +  theme(legend.position="bottom",legend.title = element_bla
 
 # overall
 
-data.results = read.csv('../paper/plos-med-revision/results/ilr-results-overall.csv')
-
+data.results = read.csv(paste0(resDir, '/ilr-results-overall.csv'))
 
 data.results$xvar1[which(data.results$xvar1=="(d) SL")] = "Sleep"
 data.results$xvar1[which(data.results$xvar1=="(b) LIPA")] = "Light"
@@ -23,9 +25,11 @@ data.results$xvar2[which(data.results$xvar2=="SB")] = "Sedentary"
 data.results$xvar2[which(data.results$xvar2=="MVPA")] = "MVPA"
 
 
+# remove rows with no HR value (or CI)
+ix = which(data.results$HR=='Inf')
+data.results = data.results[-ix,]
 
-
-pdf("../paper/plos-med-revision/results/plotiso2-overall.pdf", width=20, height=5)
+pdf(paste0(resDir, "/plotiso2-overall.pdf"), width=20, height=5)
 ggplot(data.results,aes(x=x,y=HR,colour=xvar2)) +
   geom_hline(yintercept=1, linetype="dashed", color="grey") +
   geom_line(aes(group=xvar2),size=1,alpha=0.5) +
@@ -42,7 +46,7 @@ dev.off()
 # sed plot
 
 
-data.results = read.csv('../paper/plos-med-revision/results/ilr-results-sed.csv')
+data.results = read.csv(paste0(resDir, '/ilr-results-sed.csv'))
 
 data.results$xvar1[which(data.results$xvar1=="SB")] = "Sedentary 1-15 mins"
 data.results$xvar1[which(data.results$xvar1=="SB2")] = "Sedentary 16-40 mins"
@@ -59,9 +63,11 @@ data.results$xvar2[which(data.results$xvar2=="LIPA")] = "Light"
 
 
 
+# remove rows with no HR value (or CI)
+ix = which(data.results$HR=='Inf')
+data.results = data.results[-ix,]
 
-
-pdf("../paper/plos-med-revision/results/plotiso2-sed.pdf", width=20, height=5)
+pdf(paste0(resDir, "/plotiso2-sed.pdf"), width=20, height=5)
 ggplot(data.results,aes(x=x,y=HR,colour=xvar2)) +
   geom_hline(yintercept=1, linetype="dashed", color="grey") +
   geom_line(aes(group=xvar2),size=1,alpha=0.5) +
@@ -76,7 +82,7 @@ dev.off()
 
 # MVPA plot
 
-data.results = read.csv('../paper/plos-med-revision/results/ilr-results-mod.csv')
+data.results = read.csv(paste0(resDir, '/ilr-results-mod.csv'))
 
 data.results$xvar1[which(data.results$xvar1=="MV1")] = "MVPA 1-9 mins"
 data.results$xvar1[which(data.results$xvar1=="MV2")] = "MVPA 10-15 mins"
@@ -96,10 +102,12 @@ data.results$xvar2[which(data.results$xvar2=="SB")] = "Sedentary"
 
 
 
+# remove rows with no HR value (or CI)
+ix = which(data.results$HR=='Inf')
+data.results = data.results[-ix,]
 
 
-
-pdf("../paper/plos-med-revision/results/plotiso2-mod.pdf", width=20, height=20)
+pdf(paste0(resDir, "/plotiso2-mod.pdf"), width=20, height=5)
 ggplot(data.results,aes(x=x,y=HR,colour=xvar2)) +
   geom_hline(yintercept=1, linetype="dashed", color="grey") +
   geom_line(aes(group=xvar2),size=1,alpha=0.5) +
@@ -119,7 +127,7 @@ el2 <- theme_bw(16) +  theme(legend.position = "none")
 
 
 
-pdf("../paper/plos-med-revision/results/plotiso2-mod-grid.pdf", width=20, height=20) 
+pdf(paste0(resDir, "/plotiso2-mod-grid.pdf"), width=20, height=20)
 ggplot(data.results,aes(x=x,y=HR,colour=xvar2)) +
   geom_hline(yintercept=1, linetype="dashed", color="grey") +
   geom_line(aes(group=xvar2),size=1,alpha=0.5) +

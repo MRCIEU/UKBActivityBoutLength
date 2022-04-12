@@ -119,8 +119,7 @@ colnames(phenos)[which(colnames(phenos)=='date_of_death')] = 'datedeath0'
 print('accel wear start to date')
 print(head(phenos$accelwearstartdate))
 
-phenos$accelwearstartdate = as.POSIXct(strptime(phenos$accelwearstartdate, format='%Y-%m-%dT%H:%M:%S'))
-
+phenos$accelwearstartdateX = as.POSIXct(strptime(phenos$accelwearstartdate, format='%Y-%m-%d %H:%M:%S'), tz='UTC')
 
 print(head(phenos$accelwearstartdate))
 

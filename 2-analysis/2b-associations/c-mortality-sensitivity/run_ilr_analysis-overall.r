@@ -8,9 +8,10 @@ resDir = Sys.getenv('RES_DIR')
 ######
 ###### load data and put in right format
 
-source('../../loadData.r')
-dataCD = loadData('CD', TRUE)
-
+#source('../../loadData.r')
+#dataCD = loadData('CD', TRUE)
+source('../../loadDataFromSaved.r')
+dataCD = loadDataFromSaved('cd', TRUE)
 
 ## laplace correction
 
@@ -231,7 +232,7 @@ dataSL_LIPA  <- dataSL_LIPA[which(dataSL_LIPA$LIPA>0),]
 dataSL_SB  <- dataSL_SB[which(dataSL_SB$SB>0),]
 
 # Calculate hazard ratios
-# SL HRs, comparing with MVPA with LIPA, SB and SL
+# MVPA HRs, comparing MVPA with SB, LIPA and SL
 HR1 <- with(dataMVPA_LIPA,(SL/SL0)^vecA[4] * 
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
@@ -244,7 +245,7 @@ HR3 <- with(dataMVPA_SL,(SL/SL0)^vecA[4] *
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
               (SB/SB0) ^ vecA[1])
-# SL HRs, comparing with LIPA with MVPA, SB and SL
+# LIPA HRs, comparing LIPA with MVPA, SB and SL
 HR4 <- with(dataLIPA_MVPA,(SL/SL0)^vecA[4] * 
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
@@ -257,7 +258,7 @@ HR6 <- with(dataLIPA_SL,(SL/SL0)^vecA[4] *
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
               (SB/SB0) ^ vecA[1])
-# SL HRs, comparing with MVPA, LIPA and SL
+# SB HRs, comparing SB with LIPA, MVPA and SL
 HR7 <- with(dataSB_MVPA,(SL/SL0)^vecA[4] * 
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
@@ -270,7 +271,7 @@ HR9 <- with(dataSB_SL,(SL/SL0)^vecA[4] *
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
               (SB/SB0) ^ vecA[1])
-# SB HRs, comparing with MVPA, LIPA and SL
+# SL HRs, comparing SL with SB, LIPA and MVPA
 HR10 <- with(dataSL_MVPA,(SL/SL0)^vecA[4] * 
 				(MVPA/MVPA0)^vecA[3] * 
               (LIPA/LIPA0)^vecA[2] * 
@@ -286,23 +287,25 @@ HR12 <- with(dataSL_SB,(SL/SL0)^vecA[4] *
 
 
 # Setup two-row reference composition so we can use robcompositions
-refCoDa <- data.frame(MVPA=c(MVPA0,MVPA0),
+refCoDa <- data.frame(SB=c(SB0,SB0),
                       LIPA=c(LIPA0,LIPA0),
-                      SB=c(SB0,SB0), SL=c(SL0,SL0))
+                      MVPA=c(MVPA0,MVPA0), SL=c(SL0,SL0))
+
+comp_labels = c("SB","LIPA","MVPA", "SL")
 
 # Calclate differences in ilr-space
-dx1 <- pivotCoord(dataMVPA_LIPA)-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_LIPA)[1]),]
-dx2 <- pivotCoord(dataMVPA_SB)-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_SB)[1]),]
-dx3 <- pivotCoord(dataMVPA_SL)-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_SL)[1]),]
-dx4 <- pivotCoord(dataLIPA_MVPA)-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_MVPA)[1]),]
-dx5 <- pivotCoord(dataLIPA_SB)-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_SB)[1]),]
-dx6 <- pivotCoord(dataLIPA_SL)-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_SL)[1]),]
-dx7 <- pivotCoord(dataSB_MVPA)-pivotCoord(refCoDa)[rep(1,dim(dataSB_MVPA)[1]),]
-dx8 <- pivotCoord(dataSB_LIPA)-pivotCoord(refCoDa)[rep(1,dim(dataSB_LIPA)[1]),]
-dx9 <- pivotCoord(dataSB_SL)-pivotCoord(refCoDa)[rep(1,dim(dataSB_SL)[1]),]
-dx10 <- pivotCoord(dataSL_MVPA)-pivotCoord(refCoDa)[rep(1,dim(dataSL_MVPA)[1]),]
-dx11 <- pivotCoord(dataSL_LIPA)-pivotCoord(refCoDa)[rep(1,dim(dataSL_LIPA)[1]),]
-dx12 <- pivotCoord(dataSL_SB)-pivotCoord(refCoDa)[rep(1,dim(dataSL_SB)[1]),]
+dx1 <- pivotCoord(dataMVPA_LIPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_LIPA)[1]),]
+dx2 <- pivotCoord(dataMVPA_SB[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_SB)[1]),]
+dx3 <- pivotCoord(dataMVPA_SL[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataMVPA_SL)[1]),]
+dx4 <- pivotCoord(dataLIPA_MVPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_MVPA)[1]),]
+dx5 <- pivotCoord(dataLIPA_SB[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_SB)[1]),]
+dx6 <- pivotCoord(dataLIPA_SL[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataLIPA_SL)[1]),]
+dx7 <- pivotCoord(dataSB_MVPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSB_MVPA)[1]),]
+dx8 <- pivotCoord(dataSB_LIPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSB_LIPA)[1]),]
+dx9 <- pivotCoord(dataSB_SL[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSB_SL)[1]),]
+dx10 <- pivotCoord(dataSL_MVPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSL_MVPA)[1]),]
+dx11 <- pivotCoord(dataSL_LIPA[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSL_LIPA)[1]),]
+dx12 <- pivotCoord(dataSL_SB[,comp_labels])-pivotCoord(refCoDa)[rep(1,dim(dataSL_SB)[1]),]
 
 
 test.V1 <- diag(as.matrix(dx1) %*% vmat %*% t(as.matrix(dx1)))

@@ -9,8 +9,10 @@ resDir = Sys.getenv('RES_DIR')
 ########
 ######## load data and put in right format
 
-source('../../loadData.r')
-dataCD = loadData('CD', TRUE)
+#source('../../loadData.r')
+#dataCD = loadData('CD', TRUE)
+source('../../loadDataFromSaved.r')
+dataCD = loadDataFromSaved('cd', TRUE)
 
 
 ## laplace correction

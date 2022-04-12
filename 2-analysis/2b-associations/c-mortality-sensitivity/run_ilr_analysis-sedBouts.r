@@ -9,8 +9,10 @@ resDir = Sys.getenv('RES_DIR')
 ###### load data and put in right format
 
 
-source('../../loadData.r')
-dataCD = loadData('CD', TRUE)
+#source('../../loadData.r')
+#dataCD = loadData('CD', TRUE)
+source('../../loadDataFromSaved.r')
+dataCD = loadDataFromSaved('cd', TRUE)
 
 
 ## laplace correction (isometric log ratio transformation can't work with zeros)
@@ -281,14 +283,16 @@ dataSB3_SB2  <- dataSB3_SB2[which(dataSB3_SB2$SB2>0),]
 
 
 # Setup two-row reference composition so we can use robcompositions
-refCoDa <- data.frame(MVPA=c(MVPA0,MVPA0),
-                      LIPA=c(LIPA0,LIPA0),
-                      SB=c(SB0,SB0), SL=c(SL0,SL0), SB2=c(SB2_0,SB2_0), SB3=c(SB3_0,SB3_0))
+refCoDa <- data.frame(SB=c(SB0,SB0), LIPA=c(LIPA0,LIPA0), MVPA=c(MVPA0,MVPA0),
+                      SL=c(SL0,SL0), SB2=c(SB2_0,SB2_0), SB3=c(SB3_0,SB3_0))
 
 
 
 
 plotData <- function(datax, cat1, cat2, cat1_0) {
+
+	comp_labels = c("SB","LIPA","MVPA", "SL", "SB2", "SB3")
+	datax = datax[,comp_labels]
 
 	HR1 <- with(datax,(SB3/SB3_0)^vecA[6] *
                         (SB2/SB2_0)^vecA[5] *

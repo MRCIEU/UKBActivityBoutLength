@@ -90,7 +90,6 @@ print(head(z7))
 # Merge onto dataframe
 data       <- data.frame(data,z1,z2,z3,z4,z5,z6,z7)
 
-
 print(head(data))
 print(summary(data))
 
@@ -103,7 +102,7 @@ colnames(data) = gsub('-', '.', colnames(data))
 
 ## each cox regression is a binary partition tree with a different starting category
 # each one uses a set of pivot coordinates, rotating the categories as the most left one of the binary partitions
-cox1 <- coxph(Surv(t,d) ~ sex + survivalStartAge + townsend + income + smokestatus + prev_firstocc_circ + prev_firstocc_resp + prev_firstocc_canc + ethblack + ethasian + ethother + ed1college + ed2alevels + ed3gcse + ed4cse + ed5nvq + ed6other_profes + seasonCos + seasonSin + bmi + SB_LI.SL.MV.MV.MV.MV + LIPA_SL.MV.MV.MV.MV + SL_MV.MV.MV.MV + MV1_MV.MV.MV + MV2_MV.MV + MV2_MV, data=data)
+cox1 <- coxph(Surv(t,d) ~ sex + survivalStartAge + townsend + income + smokestatus + prev_firstocc_circ + prev_firstocc_resp + prev_firstocc_canc + ethblack + ethasian + ethother + ed1college + ed2alevels + ed3gcse + ed4cse + ed5nvq + ed6other_profes + seasonCos + seasonSin + bmi + SB_LI.SL.MV.MV.MV.MV + LIPA_SL.MV.MV.MV.MV + SL_MV.MV.MV.MV + MV1_MV.MV.MV + MV2_MV.MV + MV3_MV, data=data)
 cox2 <- coxph(Surv(t,d) ~ sex + survivalStartAge + townsend + income + smokestatus + prev_firstocc_circ + prev_firstocc_resp + prev_firstocc_canc + ethblack + ethasian + ethother + ed1college + ed2alevels + ed3gcse + ed4cse + ed5nvq + ed6other_profes + seasonCos + seasonSin + bmi + LIPA_SB.SL.MV.MV.MV.MV + SB_SL.MV.MV.MV.MV + SL_MV.MV.MV.MV.1 + MV1_MV.MV.MV.1 + MV2_MV.MV.1 + MV3_MV.1, data=data)
 cox3 <- coxph(Surv(t,d) ~ sex + survivalStartAge + townsend + income + smokestatus + prev_firstocc_circ + prev_firstocc_resp + prev_firstocc_canc + ethblack + ethasian + ethother + ed1college + ed2alevels + ed3gcse + ed4cse + ed5nvq + ed6other_profes + seasonCos + seasonSin + bmi + SL_SB.LI.MV.MV.MV.MV + SB_LI.MV.MV.MV.MV + LIPA_MV.MV.MV.MV + MV1_MV.MV.MV.2 + MV2_MV.MV.2 + MV3_MV.2, data=data)
 cox4 <- coxph(Surv(t,d) ~ sex + survivalStartAge + townsend + income + smokestatus + prev_firstocc_circ + prev_firstocc_resp + prev_firstocc_canc + ethblack + ethasian + ethother + ed1college + ed2alevels + ed3gcse + ed4cse + ed5nvq + ed6other_profes + seasonCos + seasonSin + bmi + MV1_SB.LI.SL.MV.MV.MV + SB_LI.SL.MV.MV.MV + LIPA_SL.MV.MV.MV + SL_MV.MV.MV + MV2_MV.MV.3 + MV3_MV.3, data=data)

@@ -5,8 +5,6 @@ loadDataFromSaved <- function(version, hybrid=FALSE) {
 
 	dataDir = Sys.getenv('PROJECT_DATA') 
 
-	source('loadData.r')
-
 	##
 	## get our original sample for which we try to derive activity bouts data
 	phenos = read.table(paste(dataDir, '/phenotypes/derived/analysis-dataset-subset-43777.csv', sep=''), header=1, sep=',')

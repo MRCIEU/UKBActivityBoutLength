@@ -3,6 +3,7 @@
 
 
 Number of participants with complete days data: 79503
+
 Number of participants with imputed data: 82277
 
 

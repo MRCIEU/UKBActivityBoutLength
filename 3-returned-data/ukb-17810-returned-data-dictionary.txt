@@ -1,0 +1,92 @@
+variable, description
+eid, participant ID
+CD_hybrid_overall_classLight, complete days hybrid version; overall time (minutes) spent in light activity
+CD_hybrid_overall_classSleep, complete days hybrid version; overall time (minutes) spent sleeping
+CD_hybrid_overall_classSed, complete days hybrid version; overall time (minutes) spent sedentary
+CD_hybrid_overall_100mg, complete days hybrid version; overall time (minutes) spent in MVPA
+CD_hybrid_dur1mod100, complete days hybrid version; time (minutes) spent in MVPA - bouts 1-9 minutes long
+CD_hybrid_dur2mod100, complete days hybrid version; time (minutes) spent in MVPA - bouts 10-15 minutes long     
+CD_hybrid_dur3mod100, complete days hybrid version; time (minutes) spent in MVPA - bouts 16-40 minutes long       
+CD_hybrid_dur4mod100, complete days hybrid version; time (minutes) spent in MVPA - bouts 41+ minutes long
+CD_hybrid_dur1_classSleep, complete days hybrid version; time (minutes) spent sleeping - bouts 1-9 minutes long
+CD_hybrid_dur2_classSleep, complete days hybrid version; time (minutes) spent sleeping - bouts 10-15 minutes long    
+CD_hybrid_dur3_classSleep, complete days hybrid version; time (minutes) spent sleeping - bouts 16-40 minutes long
+CD_hybrid_dur4_classSleep, complete days hybrid version; time (minutes) spent sleeping - bouts 41+ minutes long
+CD_hybrid_dur1sed, complete days hybrid version; time (minutes) spent sedentary - bouts 1-15 minutes long       
+CD_hybrid_dur2sed, complete days hybrid version; time (minutes) spent sedentary - bouts 16-40 minutes long       
+CD_hybrid_dur3sed, complete days hybrid version; time (minutes) spent sedentary - bouts 41+ minutes long       
+CD_hybrid_dur1_classLight, complete days hybrid version; time (minutes) spent in light activity - bouts 1-9 minutes long
+CD_hybrid_dur2_classLight, complete days hybrid version; time (minutes) spent in light activity - bouts 10-15 minutes long
+CD_hybrid_dur3_classLight, complete days hybrid version; time (minutes) spent in light activity - bouts 16-40 minutes long
+CD_hybrid_dur4_classLight, complete days hybrid version; time (minutes) spent in light activity - bouts 41+ minutes long
+CD_nothybrid_overall_classMod, complete days prediction-only version; overall time (minutes) spent in MVPA
+CD_nothybrid_overall_classSed, complete days prediction-only version; overall time (minutes) spent sedentary
+CD_nothybrid_overall_classSleep, complete days prediction-only version; overall time (minutes) spent sleeping
+CD_nothybrid_overall_classLight, complete days prediction-only version; overall time (minutes) spent in light activity
+CD_nothybrid_overall_classWalk, complete days prediction-only version; overall time (minutes) spent walking
+CD_nothybrid_dur1_classSleep, complete days prediction-only version; time (minutes) spent sleeping - bouts 1-9 minutes long
+CD_nothybrid_dur2_classSleep, complete days prediction-only version; time (minutes) spent sleeping - bouts 10-15 minutes long
+CD_nothybrid_dur3_classSleep, complete days prediction-only version; time (minutes) spent sleeping - bouts 16-40 minutes long
+CD_nothybrid_dur4_classSleep, complete days prediction-only version; time (minutes) spent sleeping - bouts 41+ minutes long
+CD_nothybrid_dur1_classWalk, complete days prediction-only version; time (minutes) spent walking - bouts 1-9 minutes long
+CD_nothybrid_dur2_classWalk, complete days prediction-only version; time (minutes) spent walking - bouts 10-15 minutes long
+CD_nothybrid_dur3_classWalk, complete days prediction-only version; time (minutes) spent walking - bouts 16-40 minutes long
+CD_nothybrid_dur4_classWalk, complete days prediction-only version; time (minutes) spent walking - bouts 41+ minutes long
+CD_nothybrid_dur1mod, complete days prediction-only version; time (minutes) spent in MVPA - bouts 1-9 minutes long
+CD_nothybrid_dur2mod, complete days prediction-only version; time (minutes) spent in MVPA - bouts 10-15 minutes long
+CD_nothybrid_dur3mod, complete days prediction-only version; time (minutes) spent in MVPA - bouts 16-40 minutes long
+CD_nothybrid_dur4mod, complete days prediction-only version; time (minutes) spent in MVPA - bouts 41+ minutes long
+CD_nothybrid_dur1sed, complete days prediction-only version; time (minutes) spent sedentary - bouts 1-15 minutes long       
+CD_nothybrid_dur2sed, complete days prediction-only version; time (minutes) spent sedentary - bouts 16-40 minutes long       
+CD_nothybrid_dur3sed, complete days prediction-only version; time (minutes) spent sedentary - bouts 41+ minutes long           
+CD_nothybrid_dur1_classLight, complete days prediction-only version; time (minutes) spent in light activity - bouts 1-9 minutes long
+CD_nothybrid_dur2_classLight, complete days prediction-only version; time (minutes) spent in light activity - bouts 10-15 minutes long
+CD_nothybrid_dur3_classLight, complete days prediction-only version; time (minutes) spent in light activity - bouts 16-40 minutes long
+CD_nothybrid_dur4_classLight, complete days prediction-only version; time (minutes) spent in light activity - bouts 41+ minutes long
+imp_hybrid_overall_classLight, imputed hybrid version; overall time (minutes) spent in light activity
+imp_hybrid_overall_classSleep, imputed hybrid version; overall time (minutes) spent sleeping
+imp_hybrid_overall_classSed, imputed hybrid version; overall time (minutes) spent sedentary
+imp_hybrid_overall_100mg, imputed hybrid version; overall time (minutes) spent in MVPA
+imp_hybrid_dur1mod100, imputed hybrid version; time (minutes) spent in MVPA - bouts 1-9 minutes long
+imp_hybrid_dur2mod100, imputed hybrid version; time (minutes) spent in MVPA - bouts 10-15 minutes long
+imp_hybrid_dur3mod100, imputed hybrid version; time (minutes) spent in MVPA - bouts 16-40 minutes long
+imp_hybrid_dur4mod100, imputed hybrid version; time (minutes) spent in MVPA - bouts 41+ minutes long
+imp_hybrid_dur1_classSleep, imputed hybrid version; time (minutes) spent sleeping - bouts 1-9 minutes long
+imp_hybrid_dur2_classSleep, imputed hybrid version; time (minutes) spent sleeping - bouts 10-15 minutes long
+imp_hybrid_dur3_classSleep, imputed hybrid version; time (minutes) spent sleeping - bouts 16-40 minutes long
+imp_hybrid_dur4_classSleep, imputed hybrid version; time (minutes) spent sleeping - bouts 41+ minutes long
+imp_hybrid_dur1sed, imputed hybrid version; time (minutes) spent sedentary - bouts 1-15 minutes long  
+imp_hybrid_dur2sed, imputed hybrid version; time (minutes) spent sedentary - bouts 16-40 minutes long
+imp_hybrid_dur3sed, imputed hybrid version; time (minutes) spent sedentary - bouts 41+ minutes long
+imp_hybrid_dur1_classLight, imputed hybrid version; time (minutes) spent in light activity - bouts 1-9 minutes long
+imp_hybrid_dur2_classLight, imputed hybrid version; time (minutes) spent in light activity - bouts 10-15 minutes long
+imp_hybrid_dur3_classLight, imputed hybrid version; time (minutes) spent in light activity - bouts 16-40 minutes long
+imp_hybrid_dur4_classLight, imputed hybrid version; time (minutes) spent in light activity - bouts 41+ minutes long
+imp_nothybrid_overall_classMod, imputed prediction-only version; overall time (minutes) spent in MVPA
+imp_nothybrid_overall_classSed, imputed prediction-only version; overall time (minutes) spent sedentary
+imp_nothybrid_overall_classSleep, imputed prediction-only version; overall time (minutes) spent sleeping
+imp_nothybrid_overall_classLight, imputed prediction-only version; overall time (minutes) spent in light activity
+imp_nothybrid_overall_classWalk, imputed prediction-only version; overall time (minutes) spent walking
+imp_nothybrid_dur1_classSleep, imputed prediction-only version; time (minutes) spent sleeping - bouts 1-9 minutes long
+imp_nothybrid_dur2_classSleep, imputed prediction-only version; time (minutes) spent sleeping - bouts 10-15 minutes long
+imp_nothybrid_dur3_classSleep, imputed prediction-only version; time (minutes) spent sleeping - bouts 16-40 minutes long
+imp_nothybrid_dur4_classSleep, imputed prediction-only version; time (minutes) spent sleeping - bouts 41+ minutes long
+imp_nothybrid_dur1_classWalk, imputed prediction-only version; time (minutes) spent walking - bouts 1-9 minutes long
+imp_nothybrid_dur2_classWalk, imputed prediction-only version; time (minutes) spent walking - bouts 10-15 minutes long
+imp_nothybrid_dur3_classWalk, imputed prediction-only version; time (minutes) spent walking - bouts 16-40 minutes long
+imp_nothybrid_dur4_classWalk, imputed prediction-only version; time (minutes) spent walking - bouts 41+ minutes long
+imp_nothybrid_dur1mod, imputed prediction-only version; time (minutes) spent in MVPA - bouts 1-9 minutes long
+imp_nothybrid_dur2mod, imputed prediction-only version; time (minutes) spent in MVPA - bouts 10-15 minutes long     
+imp_nothybrid_dur3mod, imputed prediction-only version; time (minutes) spent in MVPA - bouts 16-40 minutes long       
+imp_nothybrid_dur4mod, imputed prediction-only version; time (minutes) spent in MVPA - bouts 41+ minutes long
+imp_nothybrid_dur1sed, imputed prediction-only version; time (minutes) spent sedentary - bouts 1-15 minutes long
+imp_nothybrid_dur2sed, imputed prediction-only version; time (minutes) spent sedentary - bouts 16-40 minutes long           
+imp_nothybrid_dur3sed, imputed prediction-only version; time (minutes) spent sedentary - bouts 41+ minutes long
+imp_nothybrid_dur1_classLight, imputed prediction-only version; time (minutes) spent in light activity - bouts 1-9 minutes long
+imp_nothybrid_dur2_classLight, imputed prediction-only version; time (minutes) spent in light activity - bouts 10-15 minutes long 
+imp_nothybrid_dur3_classLight, imputed prediction-only version; time (minutes) spent in light activity - bouts 16-40 minutes long     
+imp_nothybrid_dur4_classLight, imputed prediction-only version; time (minutes) spent in light activity - bouts 41+ minutes long
+completeDaysAVM, Average activity for complete days version
+imputedAVM, Average activity for imputed version
+num_complete_days, Number of days in complete days version
+num_imputed_days , Number of days in imputed version
